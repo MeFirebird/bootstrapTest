@@ -1,0 +1,7 @@
+
+1.bootstrap是高度组件化的，所以我们就用人家写好的组件就好了！  不要自己去写！ 兼容性不一点好！
+
+2.bootstrap有些东西我们用不到的是可以删除掉的！ 比如bootstrap.css 和 bootstrap.js中的。
+  因为没有用到，所以是可以自行的裁剪的！   但很容易出错可能（尤其是css文件）
+
+3.有列就有行,因为要用.row去消除container的padding：15px！       有container，里面可以不用row和列布局!
