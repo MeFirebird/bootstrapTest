@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!-- 因为css属性的兼容性在IE中不好，为了hack
+     原文： http://www.jianshu.com/p/b4a942901e86
+-->
+<script>
+    // placeholder属性对于IE8和IE9并不兼容，那么这时候就需要使用JavaScript来对输入框的提示文字进行模拟
+    function promptText(obj , placeHolder , fontColor) {
+        $(obj).val(placeHolder);    //设置提示文字
+        $(obj).focus(function () {            //聚焦时
+            $(this).val('');                  //清空提示文字
+            $(this).css('color' , fontColor); //设置input内容的颜色
+        });
+        $(obj).blur(function () {            //失焦时
+            var $thisVal = $(this).val();    //将输入框的value值声明一个变量，方便正则书写和阅读
+            var re = /^\s*$/;                //判断输入框内容是否为空格的正则
+            if ($(this).val() == '' || re.test($thisVal)) {  //通过正则判断如果内容为空或者空格
+                $(this).val(placeHolder);        //重新给input赋值提示文字
+                $(this).css('color', '');        //将color重置为空
+            }
+        });
+
+
+</script>
+
+</body>
+</html>
