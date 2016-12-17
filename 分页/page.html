@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>我的分页</title>
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+</head>
+
+<body>
+<div id="pageIt" ></div>
+<div id="pagingList"></div>
+<br /><br /><br /><br /><br />
+<ul id="list" >
+
+    <li class="mm">美女A</li>
+    <li class="gg">帅哥A</li>
+    <li class="mm">美女B</li>
+    <li class="gg">帅哥B</li>
+    <li class="mm">美女C</li>
+    <li class="gg">帅哥C</li>
+    <li class="mm">美女D</li>
+    <li class="gg">帅哥D</li>
+    <li class="mm">美女E</li>
+
+    <li class="gg">帅哥E</li>
+    <li class="mm">美女F</li>
+    <li class="gg">帅哥F</li>
+    <li class="mm">美女G</li>
+    <li class="gg">帅哥G</li>
+    <li class="mm">美女H</li>
+    <li class="gg">帅哥H</li>
+    <li class="mm">美女A</li>
+    <li class="gg">帅哥A</li>
+
+    <li class="mm">美女C</li>
+    <li class="gg">帅哥C</li>
+    <li class="mm">美女D</li>
+    <li class="gg">帅哥D</li>
+    <li class="mm">美女E</li>
+    <li class="gg">帅哥E</li>
+    <li class="mm">美女F</li>
+    <li class="gg">帅哥F</li>
+    <li class="mm">美女G</li>
+
+    <li class="mm">美女D</li>
+    <li class="gg">帅哥D</li>
+    <li class="mm">美女E</li>
+    <li class="gg">帅哥E</li>
+    <li class="mm">美女F</li>
+    <li class="gg">帅哥F</li>
+    <li class="gg">帅哥G</li>
+    <li class="gg">帅哥H</li>
+    <li class="gg">帅哥G</li>
+
+</ul>
+
+<script type="text/javascript">
+    $(function(){
+        var pageArray = [];
+
+        var liCount = $('li').length;       //获取记录条数
+        var PageSize  = 10;                 //设置每页，你准备显示几条
+        var PageCount  = Math.ceil(liCount/PageSize);//计算出总共页数
+        var currentPage = 1;//设置当前页
+
+        var i=0;
+        for(i=1; i<=PageCount; i++){        // 根据总页数创建出pageCount个button
+            $('<a href="#" pageNum="'+i+'" >第'+i+'页</a>').appendTo('#pageIt');   //显示分页按钮
+        }
+
+        var $li =  $('li');                // 将所有记录添加到数组中
+        $li.each(function(){
+            pageArray.push(this);
+        });
+
+        for(i=0;i<10;i++){                         // 第一页显示10条，遍历10条记录到里面哦！
+            $('#pagingList').append(pageArray[i]);
+        }
+
+        function showPage(whichPage){             //
+            $('#pagingList').html('');           //  清空当前页的10条内容记录哦
+            for(i = (whichPage-1)*10; i < 10*whichPage ; i++){    // 重新生成10条哦！
+                $('#pagingList').append(pageArray[i]);
+            }
+        }
+        var a;
+        $('a').click(function(){                 // 点击分页butotn，获取当前页的值！
+            a = $(this).attr('pagenum');
+            showPage(a);
+        });
+
+        debugger;
+    });
+</script>
+</body>
+</html>
