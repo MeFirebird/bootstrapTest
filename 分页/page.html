@@ -6,22 +6,19 @@
     <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
     <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
 </head>
+<!-- 分页逻辑： 点击button，获取相应的数据记录。
+            1.根据总页数创建出pageCount个分页button。
+            2.将所有要展示的数据记录都添加到一个数组中。 为的是取数据记录！
+              接下来做的是让两者关联哦！
+            3.思路：点击button，根据当前button的页码，加载当前页对应的数据记录。
+                   比如第三页，那么数据记录：31-40.  function(当前页current，加载多少条记录pagesize)
 
+-->
 <body>
-<div id="pageIt" ></div>
-<div id="pagingList"></div>
+<div id="pageIt" ></div>     <!-- 分页butotn容器 -->
+<div id="pagingList"></div>  <!-- 内容记录容器  -->
 <br /><br /><br /><br /><br />
 <ul id="list" >
-
-    <li class="mm">美女A</li>
-    <li class="gg">帅哥A</li>
-    <li class="mm">美女B</li>
-    <li class="gg">帅哥B</li>
-    <li class="mm">美女C</li>
-    <li class="gg">帅哥C</li>
-    <li class="mm">美女D</li>
-    <li class="gg">帅哥D</li>
-    <li class="mm">美女E</li>
 
     <li class="gg">帅哥E</li>
     <li class="mm">美女F</li>
@@ -59,9 +56,9 @@
     $(function(){
         var pageArray = [];
 
-        var liCount = $('li').length;       //获取记录条数
-        var PageSize  = 10;                 //设置每页，你准备显示几条
-        var PageCount  = Math.ceil(liCount/PageSize);//计算出总共页数
+        var liCount = $('li').length;                    //获取记录条数
+        var PageSize  = 10;                             //设置每页，你准备显示几条
+        var PageCount  = Math.ceil(liCount/PageSize);   //计算出总共页数
         var currentPage = 1;//设置当前页
 
         var i=0;
@@ -69,16 +66,18 @@
             $('<a href="#" pageNum="'+i+'" >第'+i+'页</a>').appendTo('#pageIt');   //显示分页按钮
         }
 
-        var $li =  $('li');                // 将所有记录添加到数组中
+
+        var $li =  $('li');                // 将所有记录添加到数组中， 分页的时候按pagesize从中取！
         $li.each(function(){
             pageArray.push(this);
         });
-
-        for(i=0;i<10;i++){                         // 第一页显示10条，遍历10条记录到里面哦！
+        for(i=0;i<10;i++){                         // 从容器中取（pagesize）10条记录
             $('#pagingList').append(pageArray[i]);
         }
 
-        function showPage(whichPage){             //
+
+
+        function showPage(whichPage){             //  分页button绑定执行函数。
             $('#pagingList').html('');           //  清空当前页的10条内容记录哦
             for(i = (whichPage-1)*10; i < 10*whichPage ; i++){    // 重新生成10条哦！
                 $('#pagingList').append(pageArray[i]);
